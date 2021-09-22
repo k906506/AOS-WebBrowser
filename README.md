@@ -112,7 +112,7 @@
 
 앱을 실행해서 구글 사이트에 접속하면 외부 브라우져로 전환되는 버그?가 발생한다. 이를 해결하기 위해 웹브라우져가 이 앱을 의미하도록 webViewClient를 재설정하는 과정을 거쳤다. 또한 이렇게 로드된 구글 사이트에서 자바스크립트 사용이 막혀져있는 것을 볼 수 있다. 좌측 상단의 햄버거 버튼이나 각종 버튼이 실행이 안되는 이유가 바로 여기있다. 이를 해결하기 위해 `javaScriptEnabled` 속성을 통해 자바스크립트 사용을 허가해줬다.
 
-![bandicam 2021-09-22 09-25-09-304.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/331465ee-5142-4db7-ba35-79d25c1fc682/bandicam_2021-09-22_09-25-09-304.jpg)
+![bandicam 2021-09-22 09-25-09-304](https://user-images.githubusercontent.com/33795856/134275337-b7ee37c4-ea84-44ef-ace3-929f61dddaa8.jpg)
 
 ### bindView
 
@@ -133,11 +133,11 @@
 
 `EditText` 옵션에 넣어준 `imeOptions` 속성을 이용한다. 이는 EditText로 띄어진 키보드에 속성을 준다.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f2cc3091-182b-44e7-b000-f47c0e5940bc/Untitled.png)
+![image](https://user-images.githubusercontent.com/33795856/134275371-4467ac27-403f-4523-80cc-e5529dbe9194.png)
 
 우측 하단의 완료 버튼이 `action_done` 속성이다. 완료버튼이 눌리면 `Listener` 가 호출되고 action_id를 비교한다. id가 action_done인 경우에 주소창에 넣어준 text를 load하게 된다. 그렇지 않은 경우 false를 리턴한다. 하지만 이렇게 구현해도 `[naver.com](http://naver.com)` 와 같이 불완전한 상태의 url인 경우에 접속이 되지 않는다.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8769b849-9c24-4243-9a1a-3e702cf61c0c/Untitled.png)
+![image](https://user-images.githubusercontent.com/33795856/134275392-d02217f4-f4dd-4466-8c15-d5242c5b16d3.png)
 
 이를 해결하기 위해 `Manifest` 에 `usesCleartextTraffic` 이라는속성을 줘서 자체적으로 `[https://www](https://www)` 를 붙여주도록 구현했다.
 
@@ -223,9 +223,7 @@ home, back, forward 버튼에 동작을 추가한다. 매우 간단하다. webVi
 
 ```
 
-![bandicam 2021-09-22 09-25-09-304.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/fdea6e61-3c94-44ca-9415-6a0b366bb4b9/bandicam_2021-09-22_09-25-09-304.jpg)
-
-![bandicam 2021-09-22 10-28-05-329.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/22da0487-eb25-42e2-bbf3-49a68cdd3700/bandicam_2021-09-22_10-28-05-329.jpg)
+![image](https://user-images.githubusercontent.com/33795856/134275416-2d861a2b-08fd-4964-b4e5-241a86db569a.png)
 
 상단바가 전보다 확실히 이뻐졌다.
 
@@ -279,9 +277,7 @@ dependencies {
 
 이를 해결하기 위해 `Inner class` 로 `WebViewClient` 를 오버라이딩 해줬다. 페이지 로드가 끝나면 `isRefreshing` 을 종료하도록 구현했다.
 
-![bandicam 2021-09-22 10-35-46-479.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/04013649-f679-4e6d-a986-e9795f30da7e/bandicam_2021-09-22_10-35-46-479.jpg)
-
-![bandicam 2021-09-22 10-37-20-415.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b255f4dd-5bfb-4a7c-94d4-6f17d51de00e/bandicam_2021-09-22_10-37-20-415.jpg)
+![image](https://user-images.githubusercontent.com/33795856/134275448-27100e42-1bd5-4f9a-9856-aa3ac5851951.png)
 
 페이지 로드가 완료되면 `refresh` 가 사라지는 것을 볼 수 있다.
 
@@ -335,14 +331,10 @@ dependencies {
 
 역시 오버라이딩을 통해 `progressBar` 를 업데이트 해주는 방식을 구현했다. 또한 WebViewClient에서 메소드를 추가해줬는데 페이지가 로딩되기 시작할 때 호출되는 `onPageStarted` 에 `show` 메소드를 추가했고, 페이지 로드가 종료되면 호출되는 `onPageFinished` 에 `hide` 메소드를 추가했다. 또한 각 Button의 `isEnable` 을 통해 이전 페이지가 없는 경우 뒤로 가기 버튼이 눌리지 않게, 다음 페이지가 없는 경우 앞으로 가기 버튼이 눌리지 않게 구현했다. 또한 완전한 url로 바뀌도록 구현했다.
 
-![bandicam 2021-09-22 10-37-20-415.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/aebdc2a2-8832-4669-b589-ff4406f9ca62/bandicam_2021-09-22_10-37-20-415.jpg)
-
-![Screenshot_20210922-111709_WebBrowser.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9a1760d7-087b-41ff-b49b-0b7dc5ef9c10/Screenshot_20210922-111709_WebBrowser.jpg)
+![image](https://user-images.githubusercontent.com/33795856/134275471-e6653490-4a6d-4900-8b8f-438387b3f48e.png)
 
 progressBar가 추가된 것을 볼 수 있다. 근데 상단바가 거슬린다.
 
-![bandicam 2021-09-22 11-38-44-921.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/7341abf7-92cf-433b-8554-5b8badd949e3/bandicam_2021-09-22_11-38-44-921.jpg)
-
-![Screenshot_20210922-113908_WebBrowser.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/0822fd3e-8765-4fcd-8640-3dc750b5c581/Screenshot_20210922-113908_WebBrowser.jpg)
+![image](https://user-images.githubusercontent.com/33795856/134275499-d4062a93-7b1d-4965-90fe-35f8a765ea2e.png)
 
 `NoActionBar` 로 변경해서 상단의 ActionBar를 제거해줬다. 나름 괜찮은 웹브라우저 앱을 만들었다.
