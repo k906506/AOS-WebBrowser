@@ -9,6 +9,18 @@ import android.widget.EditText
 import android.widget.ImageButton
 
 class MainActivity : AppCompatActivity() {
+    private val goHomeButton: ImageButton by lazy {
+        findViewById(R.id.goHomeButton)
+    }
+
+    private val goBackButton: ImageButton by lazy {
+        findViewById(R.id.goBackButton)
+    }
+
+    private val goForwardButton: ImageButton by lazy {
+        findViewById(R.id.goForwardButton)
+    }
+
     private val webView: WebView by lazy {
         findViewById(R.id.webView)
     }
@@ -24,11 +36,20 @@ class MainActivity : AppCompatActivity() {
         bindViews()
     }
 
+    // 하단바의 뒤로가기 버튼을 누르더라도 앱이 종료되지 않기 위해
+    override fun onBackPressed() {
+        if (webView.canGoBack()) {
+            webView.goBack()
+        } else {
+            super.onBackPressed() // 하단바의 뒤로가기 버튼 클릭시 종료되는 메소드
+        }
+    }
+
     private fun initView() {
         webView.apply {
             webViewClient = WebViewClient() // 외부 웹브라우져로 전환되는 것을 막음
             settings.javaScriptEnabled = true // 자바스크립트 사용을 허용
-            loadUrl("https://www.google.com")
+            loadUrl(DEFAULT_URL)
         }
     }
 
@@ -39,5 +60,21 @@ class MainActivity : AppCompatActivity() {
             }
             return@setOnEditorActionListener false
         }
+
+        goBackButton.setOnClickListener {
+            webView.goBack()
+        }
+
+        goForwardButton.setOnClickListener {
+            webView.goForward()
+        }
+
+        goHomeButton.setOnClickListener {
+            webView.loadUrl(DEFAULT_URL)
+        }
+    }
+
+    companion object {
+        private const val DEFAULT_URL = "https://www.google.com"
     }
 }
