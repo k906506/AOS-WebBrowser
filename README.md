@@ -10,7 +10,7 @@
 - 앞으로 가기, 뒤로 가기, 홈 버튼
 - 웹사이드 로딩 확인
 
-# 개발 과정
+# 개발 과정[(노션에서 확인)](https://codekodo.notion.site/Android-WebBrower-App-e175060b4ecc4fe89ccdab246182e95d)
 
 ## 1. 기본 UI 설정하기
 
