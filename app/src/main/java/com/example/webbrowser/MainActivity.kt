@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
+import android.webkit.URLUtil
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.EditText
@@ -36,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         findViewById(R.id.refreshLayout)
     }
 
-    private val progressBar : ContentLoadingProgressBar by lazy {
+    private val progressBar: ContentLoadingProgressBar by lazy {
         findViewById(R.id.progressBar)
     }
 
@@ -68,7 +69,12 @@ class MainActivity : AppCompatActivity() {
     private fun bindViews() {
         addressBar.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                webView.loadUrl(v.text.toString())
+                var loadingUrl = v.text.toString()
+                if (URLUtil.isNetworkUrl(loadingUrl)) {
+                    webView.loadUrl(loadingUrl)
+                } else {
+                    webView.loadUrl("https://$loadingUrl")
+                }
             }
             return@setOnEditorActionListener false
         }
@@ -100,6 +106,9 @@ class MainActivity : AppCompatActivity() {
             super.onPageFinished(view, url)
             refreshLayout.isRefreshing = false
             progressBar.hide()
+            goForwardButton.isEnabled = webView.canGoForward()
+            goBackButton.isEnabled = webView.canGoBack()
+            addressBar.setText(url)
         }
     }
 
